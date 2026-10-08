@@ -1,0 +1,110 @@
+esphome:
+  name: mspa-denver-led-rf
+  friendly_name: MSpa Denver LED RF
+  min_version: 2026.9.0
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+external_components:
+  - source: components
+    components: [mspa_led_rf]
+
+logger:
+  level: DEBUG
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+mspa_led_rf:
+  id: mspa_rf
+  rx_frequency: 433.973
+  # Calibrated on one CC1101: programmed 434.0254 MHz -> 433.9722 MHz on air.
+  # Another module may require adjustment after comparing its signal with the remote.
+  tx_frequency: 434.0254
+  remote_event:
+    name: "Remote button"
+  last_button:
+    name: "Last received button"
+    entity_category: diagnostic
+  last_tx_button:
+    name: "Last transmitted button"
+    entity_category: diagnostic
+
+button:
+  - platform: template
+    name: "Power"
+    on_press:
+      - lambda: id(mspa_rf).send_button("power");
+  - platform: template
+    name: "Mode +"
+    on_press:
+      - lambda: id(mspa_rf).send_button("mode_plus");
+  - platform: template
+    name: "Mode -"
+    on_press:
+      - lambda: id(mspa_rf).send_button("mode_minus");
+  - platform: template
+    name: "Speed +"
+    on_press:
+      - lambda: id(mspa_rf).send_button("speed_plus");
+  - platform: template
+    name: "Speed -"
+    on_press:
+      - lambda: id(mspa_rf).send_button("speed_minus");
+  - platform: template
+    name: "Demo"
+    on_press:
+      - lambda: id(mspa_rf).send_button("demo");
+  - platform: template
+    name: "Color +"
+    on_press:
+      - lambda: id(mspa_rf).send_button("color_plus");
+  - platform: template
+    name: "Color -"
+    on_press:
+      - lambda: id(mspa_rf).send_button("color_minus");
+  - platform: template
+    name: "Brightness +"
+    on_press:
+      - lambda: id(mspa_rf).send_button("bright_plus");
+  - platform: template
+    name: "Brightness -"
+    on_press:
+      - lambda: id(mspa_rf).send_button("bright_minus");
+  - platform: template
+    name: "White"
+    on_press:
+      - lambda: id(mspa_rf).send_button("white");
+  - platform: template
+    name: "Red"
+    on_press:
+      - lambda: id(mspa_rf).send_button("red");
+  - platform: template
+    name: "Green"
+    on_press:
+      - lambda: id(mspa_rf).send_button("green");
+  - platform: template
+    name: "Blue"
+    on_press:
+      - lambda: id(mspa_rf).send_button("blue");
+  - platform: template
+    name: "Yellow"
+    on_press:
+      - lambda: id(mspa_rf).send_button("yellow");
+  - platform: template
+    name: "Cyan"
+    on_press:
+      - lambda: id(mspa_rf).send_button("cyan");
+  - platform: template
+    name: "Pink"
+    on_press:
+      - lambda: id(mspa_rf).send_button("pink");

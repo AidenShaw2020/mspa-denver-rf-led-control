@@ -1,0 +1,17 @@
+# ESPHome local state and credentials
+secrets.yaml
+.esphome/
+*.bin
+
+# Arduino and PlatformIO outputs
+build/
+.pio/
+*.elf
+*.map
+
+# Local RF recordings and Python caches
+captures/
+*.wav
+*.log
+__pycache__/
+*.pyc
